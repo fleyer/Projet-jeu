@@ -156,6 +156,7 @@ public class Personnage extends Element implements IPersonnage {
         
         
         if (0 == voisins.size()) { // je n'ai pas de voisins, j'erre
+        	//TODO : test de la capacite possibilité de changement
         	actions.capacite(ve.getRef(), ve.getControleur().getArene());
         	parler("J'erre...test", ve);
         	deplacements.seDirigerVers(0); //errer

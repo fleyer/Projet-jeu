@@ -123,6 +123,12 @@ public class Actions implements IActions {
     	}
 	}
 	
+	/*
+	 * Les personnages ayant un special pourront faire appel à leur capacite
+	 * @param ref1 attaquant
+	 * @param ref2 defenseur
+	 * @param arene arene
+	 */
 	public void capacite(int ref1, IArene arene)throws RemoteException{
 		 IConsole attaquant = arene.consoleFromRef(ref1);
 		 Element elem;
