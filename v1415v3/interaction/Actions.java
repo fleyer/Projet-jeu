@@ -9,6 +9,8 @@ import java.util.Hashtable;
 import serveur.IArene;
 import controle.IConsole;
 
+import element.*;
+
 /**
  * Created by moi on 12/05/14.
  * Contient les actions basiques pouvant etre utilisees dans les strategies. 
@@ -105,6 +107,9 @@ public class Actions implements IActions {
     	if(actionExecutee) {
     		System.err.println("Une action a deja ete executee pendant ce tour !");
     	} else {
+    		
+    		//capacite(ref1, arene);
+    		
 			 //recupere l'attaquant et le defenseur
 		    IConsole attaquant = arene.consoleFromRef(ref1);
 		    IConsole defenseur = arene.consoleFromRef(ref2);
@@ -116,6 +121,16 @@ public class Actions implements IActions {
 			
 			actionExecutee = true;
     	}
+	}
+	
+	public void capacite(int ref1, IArene arene)throws RemoteException{
+		 IConsole attaquant = arene.consoleFromRef(ref1);
+		 Element elem;
+		 
+		 elem = attaquant.getElement();
+		 
+		 ((Special)elem).capacite();
+		 
 	}
 
 

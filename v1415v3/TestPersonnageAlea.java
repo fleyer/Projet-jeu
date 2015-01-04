@@ -1,4 +1,4 @@
-
+import element.*;
 
 import java.rmi.RemoteException;
 import java.util.Random;
@@ -26,7 +26,7 @@ public class TestPersonnageAlea {
 				String ipArene = "localhost";
 				if(args.length != 0) if(args[1] != "") ipArene = args[1];
 		
-				Personnage bidule = new Personnage("Truc", 100, 200);
+				Personnage bidule = new Roi();
 				Random r = new Random();
 				new Console(bidule, r.nextInt(100), r.nextInt(100), port, ipArene);
 			} catch (RemoteException e) {

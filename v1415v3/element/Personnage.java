@@ -153,8 +153,11 @@ public class Personnage extends Element implements IPersonnage {
 	public void strategie(VueElement ve, Hashtable<Integer,VueElement> voisins, Integer refRMI) throws RemoteException {
         Actions actions = new Actions(ve, voisins); //je recupere les voisins (distance < 10)
         Deplacements deplacements = new Deplacements(ve,voisins);
+        
+        
         if (0 == voisins.size()) { // je n'ai pas de voisins, j'erre
-        	parler("J'erre...", ve);
+        	actions.capacite(ve.getRef(), ve.getControleur().getArene());
+        	parler("J'erre...test", ve);
         	deplacements.seDirigerVers(0); //errer
             
         } else {
