@@ -129,5 +129,30 @@ public class Deplacements implements IDeplacements {
 	        actionExecutee = true;
     	}
     }
+    
+    /**
+     * Fonction fuir :
+     * realise la fonction de fuir, en prennant en compte les voisin
+     * si il n'y a pas de voisins alors fait un deplacement aleatoire
+     * sinon il trouve la position que le met le moins en danger
+     *     
+     */
+    public void fuir(){
+    	
+    	//pas de voisins
+    	if(voisins.isEmpty() ){
+    		seDirigerVers(0);
+    		return;
+    	}
+    	
+    	//présence de voisins
+    	//for(voisins.)
+    	
+    	
+    	
+    	
+    	
+    	
+    }
 
 }
