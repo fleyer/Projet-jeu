@@ -137,7 +137,10 @@ public class Actions implements IActions {
 		    }
     	}
 	}
-	
+	/**
+	 * Fonction qui permet a un element de creer lui même une potion
+	 * @throws RemoteException
+	 */
 	public void creerPotion() throws RemoteException{
 		
 		IArene arene = ve.getControleur().getArene();
