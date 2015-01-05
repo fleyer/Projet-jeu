@@ -5,34 +5,30 @@ import interaction.Deplacements;
 import interfaceGraphique.VueElement;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.Hashtable;
 
-import controle.Console;
-import controle.IConsole;
 import utilitaires.Calculs;
 
-
-public class Roi extends Personnage {
-	 
+public class Mage extends Personnage {
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final int temps_cool = 4;
-	private static int capacite_bonus = 50;
-	private int cooldown;
-
-	public Roi () {
-		super("Roi", 10, 50);
-		cooldown=0;
+	private int nbPas;
+	private static final int tempsCreationPotion = 10;
+	
+	
+	public Mage(String nom, int force, int charisme) {
+		super(nom, force, charisme);
+		// TODO Auto-generated constructor stub
+		
+		nbPas = 0;
 	}
 	
-	@Override
 	public void strategie(VueElement ve, Hashtable<Integer,VueElement> voisins, Integer refRMI) throws RemoteException {
         Actions actions = new Actions(ve, voisins); //je recupere les voisins (distance < 10)
         Deplacements deplacements = new Deplacements(ve,voisins);
-        int taille;
         
         if (0 == voisins.size()) { // je n'ai pas de voisins, j'erre
         	parler("J'erre...", ve);
@@ -40,6 +36,7 @@ public class Roi extends Personnage {
             
         } else {
 			VueElement cible = Calculs.chercherElementProche(ve, voisins);
+			
 			int distPlusProche = Calculs.distanceChebyshev(ve.getPoint(), cible.getPoint());
 			
 			int refPlusProche = cible.getRef();
@@ -65,7 +62,6 @@ public class Roi extends Personnage {
 						// duel
 						parler("Je fais un duel avec " + refPlusProche, ve);
 						actions.interaction(refRMI, refPlusProche, ve.getControleur().getArene());
-						capacite(ve);
 					} else {
 			        	parler("J'erre...", ve);
 			        	deplacements.seDirigerVers(0); // errer
@@ -84,40 +80,12 @@ public class Roi extends Personnage {
 			}
         }
         
-		if(cooldown != 0){
-			cooldown--;
-			return;
-		}
+        nbPas++;
+        
+        if(nbPas == tempsCreationPotion){
+        	actions.creerPotion();
+        	nbPas = 0;
+        }
 	}
-	
-	public void resetCooldown(){
-		cooldown = 0;
-	}
-	
-	/**
-	 * La fonction capacite est la capacité spéciale du roi. 
-	 * Elle applique un buff de force à son équipe.
-	 * Elle est appelée quand le roi vient de faire un duel.
-	 * @param ve
-	 * @throws RemoteException
-	 */
-	public void capacite(VueElement ve) throws RemoteException{
-		
-		ArrayList<Integer> list = this.getEquipe();
-		
-		Hashtable<String, Integer> nvCaract = new Hashtable<String, Integer>();
-		
-		IConsole cons;
-	
-		for(Integer pers : list){
-			
-			cons = ve.getControleur().getArene().consoleFromRef(pers);
 
-			cons.getElement().ajouterCaract("force",cons.getElement().getCaract("force")+capacite_bonus);
-			
-		}
-		
-		cooldown = temps_cool;
-			
-	}
 }

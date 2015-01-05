@@ -5,9 +5,14 @@ import interfaceGraphique.VueElement;
 import java.rmi.RemoteException;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Random;
 
 import serveur.IArene;
+import controle.Console;
 import controle.IConsole;
+import element.Element;
+import element.Potion;
+import element.SuperPotion;
 
 /**
  * Created by moi on 12/05/14.
@@ -131,6 +136,18 @@ public class Actions implements IActions {
 				actionExecutee = true;
 		    }
     	}
+	}
+	
+	public void creerPotion() throws RemoteException{
+		
+		IArene arene = ve.getControleur().getArene();
+		try {
+			Element anduril = new SuperPotion();
+			Random r = new Random();
+			new Console(anduril, r.nextInt(100),r.nextInt(100), arene.getPort(),arene.getIpname());
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 	}
 
 

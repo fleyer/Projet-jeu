@@ -52,6 +52,8 @@ public interface IArene extends Remote {
 
 	public int getPort() throws RemoteException;
 	
+	public String getIpname() throws RemoteException;
+	
 	public Hashtable<Integer, String> getIpAddrConsoles() throws RemoteException;
 	
 }

@@ -131,6 +131,19 @@ public class Deplacements implements IDeplacements {
     }
     
     /**
+     * Fonction de deplacement spécial du cavalier,
+     * il peut se deplacer de trois cases pour atteindre son objectif 
+     * @param cible vueElement représentant la cible la plus proche
+     */
+    public void deplacementCavalier(VueElement cible){
+    	
+    	while(Calculs.distanceChebyshev(ve.getPoint(), cible.getPoint()) > 1){
+    		this.seDirigerVers(cible.getRef());
+    	}
+    	
+    }
+    
+    /**
      * Fonction fuir :
      * realise la fonction de fuir, en prennant en compte les voisin
      * si il n'y a pas de voisins alors fait un deplacement aleatoire
@@ -147,11 +160,6 @@ public class Deplacements implements IDeplacements {
     	
     	//présence de voisins
     	//for(voisins.)
-    	
-    	
-    	
-    	
-    	
     	
     }
 

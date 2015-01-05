@@ -58,13 +58,11 @@ public class Cavalier extends Personnage {
 					}
 				}
 			} else { // si voisins, mais plus eloignes
-				// le cavalier peut se déplacer 3 fois pour atteeindre un enemi
+				// le cavalier peut se déplacer 3 fois pour atteindre un enemi
 				if(!memeEquipe) { // potion ou enemmi 
 					// je vais vers le plus proche
-					while(Calculs.distanceChebyshev(ve.getPoint(), cible.getPoint()) > 1){
-			        	parler("Je vais vers mon voisin " + refPlusProche, ve);
-			        	deplacements.seDirigerVers(refPlusProche);
-					}
+		        	parler("Je vais vers mon voisin " + refPlusProche, ve);
+		        	deplacements.deplacementCavalier(cible);
 		        	
 				} else {
 		        	parler("J'erre...", ve);

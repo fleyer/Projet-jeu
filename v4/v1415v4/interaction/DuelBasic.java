@@ -5,6 +5,8 @@ import java.rmi.RemoteException;
 
 import serveur.IArene;
 import controle.IConsole;
+import element.Element;
+import element.Mage;
 import element.Personnage;
 
 public class DuelBasic implements IDuel {
@@ -46,7 +48,11 @@ public class DuelBasic implements IDuel {
 	public boolean isLeader(IConsole per1, IConsole per2) throws RemoteException {
 		return ((Personnage) per2.getElement()).getLeader() == per1.getRefRMI();
 	}
-	
+	/**
+	 * realiserCombat
+	 * lorsqu'une personne gagne un duel, et ajoute un membre à l'équipe
+	 * le leader du gagnant augmente son charisme
+	 */
 	@Override
 	public void realiserCombat() throws RemoteException {
 		Personnage pAtt = (Personnage) attaquant.getElement();
@@ -78,17 +84,16 @@ public class DuelBasic implements IDuel {
 				if(attCharisme > defForce) {
 					// def dans l'equipe de att
 					ajouterEquipe(attaquant, defenseur);
-					
+					bonusVictoire(pAtt);
 				} else if(attForce >= defCharisme) {
 					// def tue par att
 					tuer(attaquant, defenseur);
-					
 				} else {
 					
 					if(defCharisme > defForce) {
 						// att dans l'equipe de def
 						ajouterEquipe(defenseur, attaquant);
-						
+						bonusVictoire(pDef);
 					} else {
 						// att tue par def
 						tuer(defenseur, attaquant);
@@ -102,6 +107,13 @@ public class DuelBasic implements IDuel {
 		}
 	}
 
+	public void bonusVictoire(Personnage _vainqueur) throws RemoteException{
+		
+		Element leader = arene.consoleFromRef(_vainqueur.getLeader()).getElement();
+		
+		leader.ajouterCaract("charisme", leader.getCaract("charisme")+20);
+		
+	}
 	/**
 	 * Effectue les actions lorsqu'un personnage ajoute une autre a son equipe.
 	 * @param per personnage qui a ajoute a son equipe (ou celle de son leader)

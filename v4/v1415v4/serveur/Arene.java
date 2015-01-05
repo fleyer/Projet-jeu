@@ -92,6 +92,13 @@ public class Arene extends UnicastRemoteObject implements IArene, Runnable {
 		compteurPersonnages = nbElemMax;
 		new Thread(this).start();
 	}
+	
+	/**
+	 * @return the ipname
+	 */
+	public String getIpname() throws RemoteException{
+		return ipName;
+	}
 
 	/**
 	 * @return the port
