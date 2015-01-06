@@ -16,7 +16,8 @@ import element.SuperPotion;
 
 /**
  * Created by moi on 12/05/14.
- * Contient les actions basiques pouvant etre utilisees dans les strategies. 
+ * Contient les actions basiques pouvant etre utilisees dans les strategies.
+ * ce package contient ausssi les capacités pouvant être utilisées par les personnages
  */
 public class Actions implements IActions {
 
@@ -44,8 +45,6 @@ public class Actions implements IActions {
         
         actionExecutee = false;
     }
-
-    
 	
 	/**
 	 * Appele par l'element. Permet a l'element ref1 (Personnage) de ramasser l'element ref2 (Potion), 
@@ -137,6 +136,24 @@ public class Actions implements IActions {
 		    }
     	}
 	}
+	
+	/**
+	 * Action permettant à l'assassin de réaliser ce pourquoi il est fait
+	 * @param ref_assassin
+	 * @param ref_victime
+	 * @param arene
+	 * @throws RemoteException
+	 */
+	public void assassinat(int ref_assassin, int ref_victime, IArene arene) throws RemoteException{
+		IConsole assassint = arene.consoleFromRef(ref_assassin);
+	    IConsole victime = arene.consoleFromRef(ref_victime);
+	    
+		DuelBasic duel = new DuelBasic(arene,assassint ,victime );
+		
+		duel.assassinat(assassint, victime);
+	}
+	
+	
 	/**
 	 * Fonction qui permet a un element de creer lui même une potion
 	 * @throws RemoteException
@@ -152,8 +169,6 @@ public class Actions implements IActions {
 			e.printStackTrace();
 		}
 	}
-
-
 
 	public Hashtable<Integer,VueElement> getVoisins() {
 		return voisins;

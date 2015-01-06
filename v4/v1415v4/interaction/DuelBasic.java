@@ -106,7 +106,22 @@ public class DuelBasic implements IDuel {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * "Duel", l'assassin va trouver sa cible pour le tuer
+	 * @param assassin
+	 * @param victime
+	 * @throws RemoteException
+	 */
+	public void assassinat(IConsole assassin, IConsole victime) throws RemoteException{
+		this.tuer(assassin, victime);
+	}
+	
+	/**
+	 * Méthode qui permet au leader du vainqueur de rajouter des caractéristiques au leader
+	 * @param _vainqueur
+	 * @throws RemoteException
+	 */
 	public void bonusVictoire(Personnage _vainqueur) throws RemoteException{
 		
 		Element leader = arene.consoleFromRef(_vainqueur.getLeader()).getElement();
