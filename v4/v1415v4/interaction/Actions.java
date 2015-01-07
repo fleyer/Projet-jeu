@@ -3,15 +3,16 @@ package interaction;
 import interfaceGraphique.VueElement;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Random;
 
+import serveur.Arene;
 import serveur.IArene;
 import controle.Console;
 import controle.IConsole;
 import element.Element;
-import element.Potion;
 import element.SuperPotion;
 
 /**
@@ -33,9 +34,13 @@ public class Actions implements IActions {
      * Initialise a faux, vrai si une action a deja ete executee.
      */
     private boolean actionExecutee;
+    
+    private boolean result;
 
     public Actions(VueElement ve, Hashtable<Integer, VueElement> voisins) {
         this.ve = ve;
+        
+        result = false;
         
         if (voisins == null) {
         	this.setVoisins(new Hashtable<Integer,VueElement>());
@@ -132,9 +137,34 @@ public class Actions implements IActions {
 				
 				duel.realiserCombat(); 
 				
+				result = duel.getResult();
+				
 				actionExecutee = true;
 		    }
     	}
+	}
+	
+	/**
+	 * Courage est une capacite qui permet de donnner de la force à toute son équipe
+	 * @param ve
+	 * @param actions
+	 * @throws RemoteException
+	 */
+	public void courage(VueElement ve, Actions actions, int capacite_bonus,ArrayList<Integer> list) throws RemoteException
+	{	
+		System.out.println(ve.getRef()+" :Ourra on a peut etre gagner une bataille mais pas la guerre");
+		Hashtable<String, Integer> caract = new Hashtable<String, Integer>();
+		
+		IConsole cons;
+	
+		for(Integer pers : list){
+			
+			cons = ve.getControleur().getArene().consoleFromRef(pers);
+			caract .put("force", cons.getElement().getCaract("force")+20);
+			cons.majCaractElement(caract);
+			
+		}
+			
 	}
 	
 	/**
@@ -145,12 +175,14 @@ public class Actions implements IActions {
 	 * @throws RemoteException
 	 */
 	public void assassinat(int ref_assassin, int ref_victime, IArene arene) throws RemoteException{
-		IConsole assassint = arene.consoleFromRef(ref_assassin);
+		IConsole assassin = arene.consoleFromRef(ref_assassin);
 	    IConsole victime = arene.consoleFromRef(ref_victime);
 	    
-		DuelBasic duel = new DuelBasic(arene,assassint ,victime );
+	    System.out.println(ve.getRef()+" :J'ai encore fait un bon boulot");
+	    
+		DuelBasic duel = new DuelBasic(arene,assassin ,victime );
 		
-		duel.assassinat(assassint, victime);
+		duel.assassinat(assassin, victime);
 	}
 	
 	
@@ -159,6 +191,8 @@ public class Actions implements IActions {
 	 * @throws RemoteException
 	 */
 	public void creerPotion() throws RemoteException{
+		
+		System.out.println(ve.getRef()+" :ouh ouh ouh en voila une potion !");
 		
 		IArene arene = ve.getControleur().getArene();
 		try {
@@ -184,7 +218,11 @@ public class Actions implements IActions {
 
 	public VueElement getVe() {
 		return ve;
-	}	
+	}
+	
+	public boolean getResult(){
+		return(result);
+	}
 	
 	
 }

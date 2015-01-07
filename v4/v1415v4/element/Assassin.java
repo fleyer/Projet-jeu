@@ -17,7 +17,7 @@ public class Assassin extends Personnage{
 	private static final long serialVersionUID = 1L;
 
 	public Assassin () {
-		super("Assassin", 10, 50);
+		super("Assassin", 50,10);
 	}
 	
 	@Override
@@ -28,7 +28,6 @@ public class Assassin extends Personnage{
 	public void strategie(VueElement ve, Hashtable<Integer,VueElement> voisins, Integer refRMI) throws RemoteException {
         Actions actions = new Actions(ve, voisins); //je recupere les voisins (distance < 10)
         Deplacements deplacements = new Deplacements(ve,voisins);
-        int taille;
         
         if(this.getLeader() != -1){
         	//L'assassin va tuer le leader de l'équipe
@@ -86,8 +85,10 @@ public class Assassin extends Personnage{
 			}
         }
 	}
-
 	
-
+	public void capacite(VueElement ve) throws RemoteException{
+		
+		
+	}
 
 }

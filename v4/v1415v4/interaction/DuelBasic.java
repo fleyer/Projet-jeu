@@ -6,7 +6,6 @@ import java.rmi.RemoteException;
 import serveur.IArene;
 import controle.IConsole;
 import element.Element;
-import element.Mage;
 import element.Personnage;
 
 public class DuelBasic implements IDuel {
@@ -25,6 +24,8 @@ public class DuelBasic implements IDuel {
 	 */
 	private IConsole defenseur;
 	
+	private boolean result;
+	
 	/**
 	 * Constructeur
 	 * @param arene arene
@@ -36,6 +37,8 @@ public class DuelBasic implements IDuel {
 		this.arene = arene;
 		this.attaquant = att;
 		this.defenseur = def;
+		
+		result = false;
 	}
 
 	@Override
@@ -74,6 +77,7 @@ public class DuelBasic implements IDuel {
 				if(attCharisme > defCharisme) {
 					// coup d'etat
 					System.out.println(attaquant.getRefRMI() + " realise un coup d'etat contre " + defenseur.getRefRMI());
+					result = true;
 				} else {
 					// coup d'etat echoue
 					System.out.println("Rien ne se passe");
@@ -84,16 +88,18 @@ public class DuelBasic implements IDuel {
 				if(attCharisme > defForce) {
 					// def dans l'equipe de att
 					ajouterEquipe(attaquant, defenseur);
-					bonusVictoire(pAtt);
+					result = true;
+					//bonusVictoire(pAtt);
 				} else if(attForce >= defCharisme) {
 					// def tue par att
 					tuer(attaquant, defenseur);
+					result=true;
 				} else {
 					
 					if(defCharisme > defForce) {
 						// att dans l'equipe de def
 						ajouterEquipe(defenseur, attaquant);
-						bonusVictoire(pDef);
+						//bonusVictoire(pDef);
 					} else {
 						// att tue par def
 						tuer(defenseur, attaquant);
@@ -164,6 +170,10 @@ public class DuelBasic implements IDuel {
 		
 		tue.enleverTousPersonnagesEquipe();
 		tue.perdreVie(1);
+	}
+	
+	public boolean getResult(){
+		return(result);
 	}
 
 }

@@ -130,18 +130,6 @@ public class Personnage extends Element implements IPersonnage {
 		equipe.clear();
 	}
 	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * Met en place la strategie. On ne peut utiliser que les methodes de la 
 	 * classe Actions.

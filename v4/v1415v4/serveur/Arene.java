@@ -142,12 +142,12 @@ public class Arene extends UnicastRemoteObject implements IArene, Runnable {
 						// boucle de jeu
 						Remote r = enu.nextElement();
 						to = new TimeoutOp(r);
-						to.join(4000);
+						to.join(10000);
 						if (to.isAlive()) {
 							to = null;
 							System.out.println("Depassement du temps (element n+"+elements.get(r).getRef()+") !");
-							elements.remove(r);
-							((IConsole) r).shutDown("Presence sur l'arene trop long. Degage !");
+							//elements.remove(r);
+							//((IConsole) r).shutDown("Presence sur l'arene trop long. Degage !");
 						}
 						else{
 							IElement elem = ((IConsole) r).getElement();

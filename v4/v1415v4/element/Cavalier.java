@@ -19,7 +19,6 @@ public class Cavalier extends Personnage {
 	public void strategie(VueElement ve, Hashtable<Integer,VueElement> voisins, Integer refRMI) throws RemoteException {
         Actions actions = new Actions(ve, voisins); //je recupere les voisins (distance < 10)
         Deplacements deplacements = new Deplacements(ve,voisins);
-        int taille;
         
         if (0 == voisins.size()) { // je n'ai pas de voisins, j'erre
         	parler("J'erre...", ve);

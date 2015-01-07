@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import test.*;
 
 import serveur.IArene;
 /**
@@ -212,12 +213,62 @@ public class IHM extends JFrame {
 			}
 		};
 		
+		Action roi=new AbstractAction("Roi") {
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent ae) {
+				String[] args = {"roi"};
+				TestDesPersonnage.main(args);
+					
+			}
+		};
+		
+		Action assassin=new AbstractAction("Assassin") {
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent ae) {
+				String[] args = {"assassin"};
+				TestDesPersonnage.main(args);
+			}
+		};
+		
+		Action mage=new AbstractAction("Mage") {
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent ae) {
+				String[] args = {"mage"};
+				TestDesPersonnage.main(args);
+			}
+		};
+		
+		Action personnage=new AbstractAction("Personnage") {
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent ae) {
+				String[] args = {"perso"};
+				TestDesPersonnage.main(args);
+			}
+		};
+		
 		//creation d'un menu Fichier avec deux options - quitter et a propos 	
 		JMenuBar m=new JMenuBar();
 		JMenu file=new JMenu("Fichier");
 		file.add(aboutAction);
 		file.add(exitAction);
+		
 		m.add(file);
+		
+
+		file=new JMenu("Personnages");
+		file.add(roi);
+		file.add(assassin);
+		file.add(mage);
+		file.add(personnage);
+		
+		m.add(file);
+		
+		m.revalidate();
+		
 		setJMenuBar(m);
 				
 		//ajout de l'arene dans la fenetre

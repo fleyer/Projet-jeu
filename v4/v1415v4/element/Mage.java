@@ -1,6 +1,7 @@
 package element;
 
 import interaction.Actions;
+import interaction.Capacite;
 import interaction.Deplacements;
 import interfaceGraphique.VueElement;
 
@@ -9,18 +10,20 @@ import java.util.Hashtable;
 
 import utilitaires.Calculs;
 
-public class Mage extends Personnage {
+public class Mage extends Personnage implements Capacite{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	//Représente l'état de création d'un potion
 	private int nbPas;
+	//Temps de création d'une potion
 	private static final int tempsCreationPotion = 10;
 	
 	
-	public Mage(String nom, int force, int charisme) {
-		super(nom, force, charisme);
+	public Mage() {
+		super("Mage", 50, 20);
 		// TODO Auto-generated constructor stub
 		
 		nbPas = 0;
@@ -83,9 +86,13 @@ public class Mage extends Personnage {
         nbPas++;
         
         if(nbPas == tempsCreationPotion){
-        	actions.creerPotion();
+        	capacite(ve,actions);
         	nbPas = 0;
         }
+	}
+	
+	public void capacite(VueElement ve, Actions actions) throws RemoteException{
+		actions.creerPotion();
 	}
 
 }
